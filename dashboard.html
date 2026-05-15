@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Environment Dashboard</title>
+
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+    <!-- Chart.js -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        body{
+            background:#f4fff4;
+            font-family:Arial;
+        }
+
+        .card{
+            border:none;
+            border-radius:15px;
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:scale(1.03);
+        }
+
+        .navbar{
+            background:green;
+        }
+
+        .navbar-brand{
+            color:white;
+            font-size:28px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg">
+
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">
+            🌱 Environment Dashboard
+        </a>
+
+    </div>
+
+</nav>
+
+<!-- Dashboard -->
+
+<div class="container mt-5">
+
+    <div class="row text-center">
+
+        <!-- Total Trees -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow p-4">
+
+                <i class="fa-solid fa-tree
+                fa-3x text-success"></i>
+
+                <h3 class="mt-3">
+                    Total Trees
+                </h3>
+
+                <h1 id="treeCount"
+                class="text-success">
+
+                0
+
+                </h1>
+
+            </div>
+
+        </div>
+
+        <!-- Oxygen Score -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow p-4">
+
+                <i class="fa-solid fa-wind
+                fa-3x text-primary"></i>
+
+                <h3 class="mt-3">
+                    Oxygen Score
+                </h3>
+
+                <h1 id="oxygenScore"
+                class="text-primary">
+
+                0
+
+                </h1>
+
+            </div>
+
+        </div>
+
+        <!-- Empty Spots -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow p-4">
+
+                <i class="fa-solid fa-seedling
+                fa-3x text-danger"></i>
+
+                <h3 class="mt-3">
+                    Empty Spots
+                </h3>
+
+                <h1 id="emptySpots"
+                class="text-danger">
+
+                35
+
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Chart -->
+
+    <div class="card shadow p-4 mt-5">
+
+        <h3 class="text-center text-success">
+
+            Environment Statistics
+
+        </h3>
+
+        <canvas id="myChart"></canvas>
+
+    </div>
+
+</div>
+
+<script>
+
+    // Get Tree Data
+
+    let trees =
+    JSON.parse(localStorage.getItem("trees")) || [];
+
+    // Total Trees
+
+    let totalTrees = trees.length;
+
+    // Oxygen Score
+
+    let oxygen = totalTrees * 10;
+
+    // Update Dashboard
+
+    document.getElementById("treeCount")
+    .innerHTML = totalTrees;
+
+    document.getElementById("oxygenScore")
+    .innerHTML = oxygen;
+
+    // Chart
+
+    const ctx =
+    document.getElementById('myChart');
+
+    new Chart(ctx, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: [
+
+                'Trees',
+                'Oxygen Score',
+                'Empty Spots'
+
+            ],
+
+            datasets: [{
+
+                label:
+                'Environment Data',
+
+                data: [
+
+                    totalTrees,
+                    oxygen,
+                    35
+
+                ],
+
+                borderWidth: 1
+
+            }]
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
